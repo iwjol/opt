@@ -1,0 +1,11 @@
+johan
+  /builds
+  /dotfiles
+  /res
+
+
+
+mac - aerospace, sketchybar, kitty
+arch - doom
+
+rewrite doom
