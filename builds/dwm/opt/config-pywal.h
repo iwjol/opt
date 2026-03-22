@@ -1,67 +1,77 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */			/* λ */
-static const Gap default_gap        = {.isgap = 0, .realgap = 20, .gappx = 0};			/* λ */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const Gap default_gap        = {.isgap = 0, .realgap = 20, .gappx = 0};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = {                                                         /* λ */
+
+static const double activeopacity   = 1.0f;     /* Window opacity when it's focused (0 <= opacity <= 1) */
+static const double inactiveopacity = 0.95f;     /* Window opacity when it's inactive (0 <= opacity <= 1) */
+
+static const char *fonts[]          = {
         "JetBrainsMono Nerd Font:size=12",
         "monospace:size=12"     //fallback font
 };
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_bg[]          = "#d9d9d9";                                                /* λ */
-static const char col_fg[]          = "#1c1c1c";                                                /* λ */
-static const char col_selbg[]       = "#bfbfbf";                                                /* λ */
-static const char col_selfg[]       = "#000000";                                                /* λ */
-static const char col_border[]      = "#bfbfbf";                                                /* λ */
-static const char *colors[][3]      = {                                                         /* λ */
-        /*               fg         bg         border   */
-        [SchemeNorm] = { col_fg, col_bg, col_border },
-        [SchemeSel]  = { col_selfg, col_selbg,  col_border  },
+
+#include "/home/j/.cache/wal/colors-wal-dwm.h"
+
+/*
+static const char col_bg[]          = "#AAAAAA";
+static const char col_fg[]          = "#4A4D57";
+static const char col_selbg[]       = "#4A4D57";
+static const char col_selfg[]       = "#AAAAAA";
+static const char col_border[]      = "#5E5E5E";
+static const char col_selborder[]   = "#333333";
+
+static const char *colors[][3]      = {
+        [SchemeNorm] = { col_fg, col_bg, col_bg },
+        [SchemeSel]  = { col_selfg, col_selbg,  col_fg  },
 };
+*/
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };                         /* λ */
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
 
 static const Rule rules[] = {
-        /* xprop(1):
-         *      WM_CLASS(STRING) = instance, class
-         *      WM_NAME(STRING) = title
-         */
-        /* class      instance    title       tags mask     isfloating   monitor */
-        { "Gimp",     NULL,       NULL,       0,            1,           -1 },
-        { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* xprop(1):
+	 *	WM_CLASS(STRING) = instance, class
+	 *	WM_NAME(STRING) = title
+	 */
+	/* class      instance    title       tags mask     isfloating   focusopacity    unfocusopacity     monitor */
+	{ "Gimp",     NULL,       NULL,       0,            1,           1.0,            inactiveopacity,   -1 },
+	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           activeopacity,  inactiveopacity,   -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */         /* λ */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
-static const int refreshrate = 180;  /* refresh rate (per second) for client move/resize */     /* λ */
+static const int refreshrate = 180;  /* refresh rate (per second) for client move/resize */
 
-static const Layout layouts[] = {                                                               /* λ */
+static const Layout layouts[] = {
         /* symbol     arrange function */
-        { "",      tile },    /* first entry is default */
-        { "󱂬",      NULL },    /* no layout function means floating behavior */
-        { "",      monocle },
+        { "  λ",      tile },    /* first entry is default */
+        { " 󱂬 λ",      NULL },    /* no layout function means floating behavior */
+        { "  λ",      monocle },
 };
 
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-        { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-        { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-        { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-        { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */              /* λ */
+static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run",
                                   "-m", dmenumon,
                                   "-fn", dmenufont,
@@ -101,6 +111,10 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
 	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
+        { MODKEY|ShiftMask,             XK_a,      changefocusopacity,   {.f = +0.025}},	/* λ opacity */
+        { MODKEY|ShiftMask,             XK_s,      changefocusopacity,   {.f = -0.025}},	/* λ opacity */
+        { MODKEY|ShiftMask,             XK_z,      changeunfocusopacity, {.f = +0.025}},	/* λ opacity */
+        { MODKEY|ShiftMask,             XK_x,      changeunfocusopacity, {.f = -0.025}},	/* λ opacity */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

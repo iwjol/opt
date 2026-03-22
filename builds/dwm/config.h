@@ -15,12 +15,12 @@ static const char *fonts[]          = {
         "monospace:size=12"     //fallback font
 };
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_bg[]          = "#CCCCCC";                                                /* λ */
-static const char col_fg[]          = "#474747";                                                /* λ */
-static const char col_selbg[]       = "#474747";                                                /* λ */         /* alt light #AEAEAE */
-static const char col_selfg[]       = "#CCCCCC";                                                /* λ */         /* alt light #333333 */
-static const char col_border[]      = "#5E5E5E";                                                /* λ */
-static const char col_selborder[]   = "#333333";                                                /* λ */
+static const char col_bg[]          = "#AAAAAA";                                                /* λ */		/* alt #CCCCCC */
+static const char col_fg[]          = "#4A4D57";                                                /* λ */		/* alt #474747 */
+static const char col_selbg[]       = "#4A4D57";                                                /* λ */         /* alt #474747 */	/* alt light #AEAEAE */
+static const char col_selfg[]       = "#AAAAAA";                                                /* λ */         /* alt #CCCCCC */	/* alt light #333333 */
+static const char col_border[]      = "#5E5E5E";                                                /* λ */		/* alt #5E5E5E */
+static const char col_selborder[]   = "#333333";                                                /* λ */		/* alt #333333 */
 /* static const char col_orange[] = "#ECBE7B"; */
 
 static const char *colors[][3]      = {
@@ -51,9 +51,9 @@ static const int refreshrate = 180;  /* refresh rate (per second) for client mov
 
 static const Layout layouts[] = {
         /* symbol     arrange function */
-        { "",      tile },    /* first entry is default */
-        { "󱂬",      NULL },    /* no layout function means floating behavior */
-        { "",      monocle },
+        { "  λ",      tile },    /* first entry is default */
+        { " 󱂬 λ",      NULL },    /* no layout function means floating behavior */
+        { "  λ",      monocle },
 };
 
 /* key definitions */
