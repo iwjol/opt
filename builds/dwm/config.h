@@ -112,6 +112,9 @@ static const Key keys[] = {
         { MODKEY|ShiftMask,             XK_s,      changefocusopacity,   {.f = -0.025}},	/* λ opacity */
         { MODKEY|ShiftMask,             XK_z,      changeunfocusopacity, {.f = +0.025}},	/* λ opacity */
         { MODKEY|ShiftMask,             XK_x,      changeunfocusopacity, {.f = -0.025}},	/* λ opacity */
+
+	{ MODKEY,            	 	XK_w,      killclient,     {0} },			/* λ mac */
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
