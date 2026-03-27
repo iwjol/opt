@@ -54,9 +54,9 @@ static const int refreshrate = 180;  /* refresh rate (per second) for client mov
 
 static const Layout layouts[] = {
         /* symbol     arrange function */
-        { "  λ",      tile },    /* first entry is default */
-        { " 󱂬 λ",      NULL },    /* no layout function means floating behavior */
-        { "  λ",      monocle },
+        { "  ",      tile },    /* first entry is default */
+        { " 󱂬 ",      NULL },    /* no layout function means floating behavior */
+        { "  ",      monocle },
 };
 
 /* key definitions */
@@ -115,6 +115,8 @@ static const Key keys[] = {
         { MODKEY|ShiftMask,             XK_s,      changefocusopacity,   {.f = -0.025}},	/* λ opacity */
         { MODKEY|ShiftMask,             XK_z,      changeunfocusopacity, {.f = +0.025}},	/* λ opacity */
         { MODKEY|ShiftMask,             XK_x,      changeunfocusopacity, {.f = -0.025}},	/* λ opacity */
+
+	{ MODKEY,                       XK_w,      killclient,     {0} },                       /* λ mac */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
