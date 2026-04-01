@@ -11,10 +11,12 @@ static const double activeopacity   = 1.0f;     /* Window opacity when it's focu
 static const double inactiveopacity = 0.95f;     /* Window opacity when it's inactive (0 <= opacity <= 1) */
 
 static const char *fonts[]          = {
+	"Courier:style=Bold:size=12",
+	"CMU Typewriter:size=12",
         "JetBrainsMono Nerd Font:size=12",
         "monospace:size=12"     //fallback font
 };
-static const char dmenufont[]       = "monospace:size=10";
+static const char dmenufont[]       = "Courier:style=Bold:size=12";
 static const char col_bg[]          = "#AAAAAA";                                                /* λ */		/* alt #CCCCCC */
 static const char col_fg[]          = "#4A4D57";                                                /* λ */		/* alt #474747 */
 static const char col_selbg[]       = "#4A4D57";                                                /* λ */         /* alt #474747 */	/* alt light #AEAEAE */
@@ -51,9 +53,9 @@ static const int refreshrate = 180;  /* refresh rate (per second) for client mov
 
 static const Layout layouts[] = {
         /* symbol     arrange function */
-        { "  ",      tile },    /* first entry is default */
-        { " 󱂬 ",      NULL },    /* no layout function means floating behavior */
-        { "  ",      monocle },
+        { "[λ]",      tile },    /* first entry is default */
+        { "[x]",      NULL },    /* no layout function means floating behavior */
+        { "[m]",      monocle },
 };
 
 /* key definitions */
@@ -112,8 +114,6 @@ static const Key keys[] = {
         { MODKEY|ShiftMask,             XK_s,      changefocusopacity,   {.f = -0.025}},	/* λ opacity */
         { MODKEY|ShiftMask,             XK_z,      changeunfocusopacity, {.f = +0.025}},	/* λ opacity */
         { MODKEY|ShiftMask,             XK_x,      changeunfocusopacity, {.f = -0.025}},	/* λ opacity */
-
-	{ MODKEY,            	 	XK_w,      killclient,     {0} },			/* λ mac */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
